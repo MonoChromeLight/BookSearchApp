@@ -1,19 +1,28 @@
 package uni.fmi.books.models;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 
 @Entity
-public class Book {
+@JsonIgnoreProperties({"genre","owner"})
+public class Book implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -21,9 +30,11 @@ public class Book {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Genre genre;
-	
+	@JsonInclude()
+	@Transient
 	private String genre_name;
-	private String age;
+	@JsonInclude()
+	@Transient
 	private String author;
 	
 	@ManyToOne(fetch = FetchType.EAGER)	
@@ -32,14 +43,24 @@ public class Book {
 	public Book() {
 		
 	}
-
-	public Book(String name,  String age, String author) {
-		super();
-		this.name = name;
-		this.age=age;
-		this.author=author;
+	public Book(Integer id) {
+		this.id=id;
 	}
 
+	public Book(String name, Genre genre, Author author) {
+		super();
+		this.name = name;
+		this.genre=genre;
+		this.owner=author;
+	}
+/*	public Book(String name, Integer b_genre, String age, Integer b_author) {
+		super();
+		this.name = name;
+		this.genre.setG_id(b_genre);
+		this.age=age;
+		this.owner.setId(b_author);
+		this.owner.setName(b_author.toString());
+	}  */
 	/**
 	 * @return the id
 	 */
@@ -83,22 +104,6 @@ public class Book {
 	public void setGenre_name(String genre_name) {
 		this.genre_name = genre_name;
 	}
-
-	/**
-	 * @return the age
-	 */
-	public String getAge() {
-		return age;
-	}
-
-	/**
-	 * @param age the age to set
-	 */
-	public void setAge(String age) {
-		this.age = age;
-	}
-
-	
 
 	/**
 	 * @return the genre

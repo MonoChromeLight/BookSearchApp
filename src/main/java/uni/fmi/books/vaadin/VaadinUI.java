@@ -3,6 +3,8 @@ package uni.fmi.books.vaadin;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.grid.Grid;
@@ -18,7 +20,7 @@ import uni.fmi.books.repos.Service;
 import uni.fmi.books.models.Book;
 
 
-
+//@RequestMapping("/vaadin")
 @Route("")
 public class VaadinUI extends VerticalLayout {
 	private static final long serialVersionUID = 1L;
@@ -49,15 +51,15 @@ public class VaadinUI extends VerticalLayout {
 		//grid.addColumn(Book::getOwner).getElement();
 		 TextField name = new TextField("Enter book name");
 		 Button button = new Button("Clear");
-		 Checkbox age1 = new Checkbox("1-4");
-		 Checkbox age2 = new Checkbox("5-10");
-		 Checkbox age3 = new Checkbox("10-15");
+	//	 Checkbox age1 = new Checkbox("1-4");
+	//	 Checkbox age2 = new Checkbox("5-10");
+	//	 Checkbox age3 = new Checkbox("10-15");
 		 Select<String> genre = new Select<>();
 		 
 		 genre.setItems("Science", "Science fiction", "Children");
 		 genre.setLabel("Genre");
 		 
-		 HorizontalLayout ages = new HorizontalLayout(age1,age2,age3);
+	//	 HorizontalLayout ages = new HorizontalLayout(age1,age2,age3);
 		 
 		 HorizontalLayout panel = new  HorizontalLayout(name,genre);
 		 VerticalLayout layout = new VerticalLayout(button);
@@ -67,7 +69,7 @@ public class VaadinUI extends VerticalLayout {
 		// genre.addValueChangeListener(e -> updateList(name.getValue(),genre.getValue()));
 		
 		 button.addClickListener(e -> ClearAll()); /*Notification.show(service.getBook(name.getValue()))*/
-		 add(panel,ages,button, books); 
+		 add(panel,button, books); 
 	}
 	
 

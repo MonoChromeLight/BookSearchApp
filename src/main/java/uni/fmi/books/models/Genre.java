@@ -1,5 +1,6 @@
 package uni.fmi.books.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,10 +11,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 @Entity
-public class Genre {
+@JsonIgnoreProperties({"books"})
+public class Genre implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int g_id;
@@ -27,8 +37,12 @@ public class Genre {
 	private List<Book> books;
 	
 	public Genre() {
+		
+	}
+	
+	public Genre(String g_name) {
 		super();
-		// TODO Auto-generated constructor stub
+		this.g_name = g_name;
 	}
 
 	public Genre(int g_id, String g_name) {

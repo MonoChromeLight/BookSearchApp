@@ -1,5 +1,7 @@
 package uni.fmi.books.models;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -8,12 +10,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-
 @Entity
-public class Author {
+public class Author implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int a_id;
@@ -25,8 +29,12 @@ public class Author {
 	private List<Book> books;
 	
 	public Author() {
+		
+	}
+	
+	public Author(String a_name) {
 		super();
-		// TODO Auto-generated constructor stub
+		this.a_name = a_name;
 	}
 
 	public Author(int a_id, String a_name) {
@@ -67,6 +75,9 @@ public class Author {
 	 * @return the posts
 	 */
 	public List<Book> getBooks() {
+		if (null == books) {
+			books = new ArrayList<>();
+		}
 		return books;
 	}
 
@@ -76,6 +87,13 @@ public class Author {
 	public void setBooks(List<Book> books) {
 		this.books = books;
 	}
+
+	public void addBook(Book book) {
+		getBooks().add(book);
+		
+	}
+
+	
 	
 	
 	

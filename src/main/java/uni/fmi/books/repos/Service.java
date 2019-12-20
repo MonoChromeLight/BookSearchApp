@@ -2,15 +2,9 @@ package uni.fmi.books.repos;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import uni.fmi.books.models.Book;
 
@@ -47,9 +41,9 @@ public class Service {
 		return books;
 	}
 
-	public List<Book> findAllNandG(String name,String genre) {
+	public List<Book> findAllNandG(String name) {
 		final List<Book> books = new ArrayList<>();
-		books.addAll(bookRepo.findAllByNameIgnoreCaseContainingAndGenre(name,genre));
+		books.addAll(bookRepo.findAllByNameIgnoreCaseContaining(name));
 		return books;
 		
 	}
